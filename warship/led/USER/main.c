@@ -8,6 +8,8 @@
 int main(void)
 {		
     u8 t=0;
+    u8 len;	
+	u16 times=0;
     
     delay_init();	    	  //延时函数初始化	  
     NVIC_Configuration(); 	  //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
@@ -18,28 +20,31 @@ int main(void)
     
 	while(1)
 	{
- 		t=KEY_Scan(0);		
-        
-	   	if(t)
-		{						   
-			switch(t)
-			{				 
-				case KEY_UP:	
-					BEEP=!BEEP;
-					break;
-				case KEY_LEFT:	
-					LED0=!LED0;
-					break;
-				case KEY_DOWN:
-					LED1=!LED1;
-					break;
-				case KEY_RIGHT:
-					LED0=!LED0;
-					LED1=!LED1;
-					break;
-			}
-		}else 
-            delay_ms(10); 
+        if(USART_RX_STA&0x8000)
+            {					   
+                len=USART_RX_STA&0x3fff;
+                printf("\r\nHello:\r\n\r\n");
+                for(t=0;t<len;t++)
+                {
+                    USART_SendData(USART1, USART_RX_BUF[t]);
+                    while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);
+                }
+                printf("\r\n\r\n");
+                USART_RX_STA=0;
+            }else
+            {
+                times++;
+                if(times%5000==0)
+                {
+                    printf("\r\nSTM32\r\n");
+                    printf("Good\r\n\r\n");
+                }
+                if(times%200==0)
+                    printf("See you\n");  
+                if(times%30==0)
+                    LED0=!LED0;
+                delay_ms(10);   
+            }
 	}	
 }
 

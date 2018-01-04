@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\HARDWARE\LED;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\BEEP</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\HARDWARE\LED;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\BEEP;..\HARDWARE\KEY</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -436,6 +436,11 @@
               <FileName>beep.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\BEEP\beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\KEY\key.c</FilePath>
             </File>
           </Files>
         </Group>
